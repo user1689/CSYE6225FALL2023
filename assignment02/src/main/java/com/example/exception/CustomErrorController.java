@@ -8,6 +8,7 @@ import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
 import org.springframework.boot.web.servlet.error.ErrorAttributes;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,7 +44,7 @@ public class CustomErrorController extends BasicErrorController {
     public ResponseEntity<Map<String, Object>> error(HttpServletRequest request) {
         return ResponseEntity
                 .status(HttpStatus.METHOD_NOT_ALLOWED)
-                // .cacheControl(CacheControl.noCache())
+                .contentType(MediaType.APPLICATION_JSON)
                 .header("Cache-Control", "no-cache, no-store, must-revalidate")
                 .header("Pragma","no-cache")
                 .header("X-Content-Type-Options", "nosniff")

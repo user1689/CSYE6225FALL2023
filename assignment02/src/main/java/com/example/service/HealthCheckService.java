@@ -28,11 +28,20 @@ public class HealthCheckService {
     private String password;
 
     public Boolean healthCheck() {
+        Class<?> clazz = null;
+        Connection connection = null;
         try {
-            Class<?> clazz = Class.forName(className);
-            Connection connection = DriverManager.getConnection(url, username, password);
+            clazz = Class.forName(className);
+            connection = DriverManager.getConnection(url, username, password);
         } catch (Exception e) {
             throw new DataBaseServiceDownException();
+        }
+        finally {
+            try {
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
         return true;
     }
