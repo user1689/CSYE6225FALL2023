@@ -7,11 +7,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.SQLException;
+import java.util.Map;
 
 /**
  * @title: HealthResource
@@ -27,12 +30,12 @@ public class HealthCheckEndpoint {
     private HealthCheckService healthCheckService;
 
     @GetMapping("/healthz")
-    public ResponseEntity<String> healthCheck() throws SQLException, ClassNotFoundException {
+    public ResponseEntity<Map<String, Object>> healthCheck() {
         Boolean isHealth = healthCheckService.healthCheck();
         if (BooleanUtil.isFalse(isHealth)) throw new DataBaseServiceDownException();
         return ResponseEntity
                 .status(HttpStatus.OK)
-                // .cacheControl(CacheControl.noCache())
+                .contentType(MediaType.APPLICATION_JSON)
                 .header("Cache-Control", "no-cache, no-store, must-revalidate")
                 .header("Pragma","no-cache")
                 .header("X-Content-Type-Options", "nosniff")

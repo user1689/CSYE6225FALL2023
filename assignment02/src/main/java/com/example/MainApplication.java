@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * @Date: 2023/9/23 9:08 PM
  * @Version 1.0
  */
-@SpringBootApplication(exclude={DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
+@SpringBootApplication
 public class MainApplication {
 
     public static void main(String[] args) {
