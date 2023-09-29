@@ -1,0 +1,28 @@
+server:
+  port: 8080
+  error:
+    whitelabel:
+      enabled: true
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/?&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+logging:
+  level:
+    com:
+      example: DEBUG
+    org:
+      hibernate: DEBUG
+      springframework:
+        security: DEBUG
+        data: DEBUG
+        jdbc:
+          core: DEBUG
+    web: DEBUG
+  pattern:
+    console: "%clr(%d{E HH:mm:ss.SSS}){blue} %clr(%-5p) %clr(${PID}){faint} %clr(---){faint}
+              %clr([%8.15t]){cyan} %clr(%-40.40logger{0}){blue} %clr(:){red} %clr(%m){faint}%n"
